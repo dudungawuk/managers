@@ -1,33 +1,52 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Created automatically by your mentor for a Spring Boot and Java project.
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# ------------------------------------
+### 1. JAVA / ARTIFACTS BUILD ###
+# ------------------------------------
+# Compiled files
+*.class
+*.class~
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+/target/
+/build/
+/out/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# JVM internal logs
+hs_err_pid*
+replay_pid*
+
+# ------------------------------------
+### 2. IDE FILES (IntelliJ, VSCode, Eclipse) ###
+# ------------------------------------
+# IntelliJ IDEA
+.idea/
 *.iml
+*.iws
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+# VSCode
 .vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata
+
+# ------------------------------------
+### 3. KEAMANAN KRITIS & LOG (Wajib diabaikan!) ###
+# ------------------------------------
+# JANGAN PERNAH COMMIT FILE YANG MENGANDUNG PASSWORD DB, API KEY, atau SECRET.
+application.properties
+application.yml
+application-secret.properties
+application-secret.yml
+
+# File log aplikasi (tempat log LoginAttemptFilter berada)
+/logs/
+*.log
