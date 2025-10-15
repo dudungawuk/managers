@@ -35,13 +35,13 @@ public class LoginAttemptFilter extends OncePerRequestFilter {
                     String loginStatus = (response.getStatus() == 302 && locationHeader != null && locationHeader.endsWith("/home")) ? "SUCCESS" : "FAILED";
                     
                     String censoredPayload = payload.replaceAll("password=[^&]*", "password=********");
-                    String logData = new LoginLogEvent(request, response,loginStatus, censoredPayload).toJsonString();
+                    LoginLogEvent logData = new LoginLogEvent(request, response,loginStatus, censoredPayload);
                     if (loginStatus.equals("SUCCESS")) {
-                        logger.info(logData); // Level INFO untuk keberhasilan
-                    } else {
-                        logger.warn(logData); // Level WARN untuk kegagalan (deteksi serangan)
+                        logData.setMessage("User "+censoredPayload+" successfully established session and granted access.");
+                        logger.info(logData.toJsonString()); // Level INFO untuk keberhasilan
+                    } else{
+                        logger.warn(logData.toJsonString()); // Level WARN untuk kegagalan (deteksi serangan)
                     }
-                
             }
         }
 

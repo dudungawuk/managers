@@ -5,11 +5,29 @@
     <title>Home</title>
 </head>
 <body>
-    <h2>Welcome!</h2>
+    <h2>Welcome! Maz <span th:text="${username}"></span> </h2>
     <p>You have successfully logged in.</p>
+
+    <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    
+    <h3>Upload File Anda</h3>
+    
+    <input type="file" name="file" required> 
+    
+    <button type="submit">Upload Sekarang</button>
+    </form>
+
+    <div th:if="${param.uploadSuccess}" style="color:green; margin-top: 15px;">
+        File berhasil di-upload!
+    </div>
+    <div th:if="${param.uploadError}" style="color:red; margin-top: 15px;">
+        Gagal Upload: <span th:text="${param.uploadError}"></span>
+    </div>
 
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
+
+    
 </body>
 </html>
