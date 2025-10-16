@@ -20,6 +20,10 @@ public class DataSeeder {
 
                 User admin = new User("admin",hashedPassword);
                 userRepository.save(admin);
+
+                User user1 = new User("user1",encoder.encode("user1").toString());
+                userRepository.save(user1);
+                
                 System.out.println(">>> Admin was created with username: admin and password: admin123");
             }else{
                 System.out.println(">>> Admin user already exist, skipping seeding");

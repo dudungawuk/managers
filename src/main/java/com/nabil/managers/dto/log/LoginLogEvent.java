@@ -36,15 +36,11 @@ public class LoginLogEvent {
 
     @JsonProperty("redirect_location")
     public final String redirectLocation;
-
-    @JsonProperty("payload_hint")
-    public final String payloadHint;
     
     @JsonProperty("message")
     private String message;
 
-    public LoginLogEvent(HttpServletRequest request, HttpServletResponse response, String loginStatus,
-            String censoredPayload) {
+    public LoginLogEvent(HttpServletRequest request, HttpServletResponse response, String loginStatus) {
         this.clientIp = request.getRemoteAddr();
         this.userAgent = request.getHeader("User-Agent");
         this.timestamp = ZonedDateTime.now(ZoneId.of("Asia/Jakarta")).toString();
@@ -52,7 +48,6 @@ public class LoginLogEvent {
         this.loginStatus = loginStatus;
         this.httpStatusCode = response.getStatus();
         this.redirectLocation = response.getHeader("Location");
-        this.payloadHint = censoredPayload;
     }
 
     public void setMessage(String message) {

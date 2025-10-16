@@ -50,3 +50,5 @@ application-secret.yml
 # File log aplikasi (tempat log LoginAttemptFilter berada)
 /logs/
 *.log
+
+/user_storage/

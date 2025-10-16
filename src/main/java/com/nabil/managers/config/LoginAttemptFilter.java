@@ -1,8 +1,6 @@
 package com.nabil.managers.config;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,26 +19,22 @@ public class LoginAttemptFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         
-        if(request.getMethod().equalsIgnoreCase("POST")){
+        if(request.getMethod().equalsIgnoreCase("POST") && request.getRequestURI().endsWith("/login") ){
             
             ContentCachingRequestWrapper wrappedRequest = new ContentCachingRequestWrapper(request);
                 
                 try {
-                    
                     filterChain.doFilter(wrappedRequest, response); 
                 } finally {
-                    byte[] content = wrappedRequest.getContentAsByteArray();
-                    String payload = new String(content, StandardCharsets.UTF_8);
+                    String username =  request.getParameter("username");
                     String locationHeader = response.getHeader("Location");
                     String loginStatus = (response.getStatus() == 302 && locationHeader != null && locationHeader.endsWith("/home")) ? "SUCCESS" : "FAILED";
-                    
-                    String censoredPayload = payload.replaceAll("password=[^&]*", "password=********");
-                    LoginLogEvent logData = new LoginLogEvent(request, response,loginStatus, censoredPayload);
+                    LoginLogEvent logData = new LoginLogEvent(request, response,loginStatus);
                     if (loginStatus.equals("SUCCESS")) {
-                        logData.setMessage("User "+censoredPayload+" successfully established session and granted access.");
-                        logger.info(logData.toJsonString()); // Level INFO untuk keberhasilan
+                        logData.setMessage("User " + username +" successfully established session and granted access.");
+                        logger.info(logData.toJsonString()); 
                     } else{
-                        logger.warn(logData.toJsonString()); // Level WARN untuk kegagalan (deteksi serangan)
+                        logger.warn(logData.toJsonString()); 
                     }
             }
         }
