@@ -14,6 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -53,4 +56,16 @@ public class FileService {
         
         System.out.println("File berhasil disimpan di: " + destinationPath.toAbsolutePath());
     }  
+
+    public List<String> getFilesName(String username){
+        User user = userRepository.findByUsername(username);
+        String userId = user.getId();
+
+        List<String> userFiles = fileRepository.getAllFileById(userId).stream()
+                                    .map(file -> file.getName())
+                                    .collect(Collectors.toList());
+
+        return userFiles;
+    }
+
 } 

@@ -17,6 +17,13 @@
     <button type="submit">Upload Sekarang</button>
     </form>
 
+    <div th:each="filename : ${imageFiles}">
+        <img 
+            th:src="@{/user-images/{filename}(filename=${filename})}" 
+            th:alt="${filename}"
+        />
+    </div>
+
     <div th:if="${param.uploadSuccess}" style="color:green; margin-top: 15px;">
         File berhasil di-upload!
     </div>

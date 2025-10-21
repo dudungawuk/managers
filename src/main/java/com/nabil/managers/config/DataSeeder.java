@@ -17,11 +17,12 @@ public class DataSeeder {
             if(userRepository.findByUsername("admin")==null){
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 String hashedPassword = encoder.encode("admin123");
+                String hashedPassword2 = encoder.encode("admin123");
 
                 User admin = new User("admin",hashedPassword);
                 userRepository.save(admin);
 
-                User user1 = new User("user1",encoder.encode("user1").toString());
+                User user1 = new User("user1",hashedPassword2);
                 userRepository.save(user1);
                 
                 System.out.println(">>> Admin was created with username: admin and password: admin123");
