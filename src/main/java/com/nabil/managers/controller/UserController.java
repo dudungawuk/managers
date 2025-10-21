@@ -34,6 +34,8 @@ public class UserController {
 
         List<String> imageFileNames = fileService.getFilesName(username);
 
+        System.out.println(imageFileNames);
+
         model.addAttribute("imageFiles", imageFileNames);
         return "home";
     }

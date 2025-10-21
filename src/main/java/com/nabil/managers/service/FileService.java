@@ -59,13 +59,11 @@ public class FileService {
 
     public List<String> getFilesName(String username){
         User user = userRepository.findByUsername(username);
-        String userId = user.getId();
 
-        List<String> userFiles = fileRepository.getAllFileById(userId).stream()
-                                    .map(file -> file.getName())
-                                    .collect(Collectors.toList());
+        List<File> userFiles = fileRepository.findByUser(user);
+        List<String> userFilesString = userFiles.stream().map(file->file.getName()).toList();
 
-        return userFiles;
+        return userFilesString;
     }
 
 } 
